@@ -17,23 +17,25 @@ main {
   justify-content: center;
 }
 #gameboard-container {
+  display: flex;
   text-align: center;
   background-color: chartreuse;
-  padding: 0.2rem 0;
-  width: 47rem;
+  flex-wrap: wrap;
+  padding: 0.3rem;
+  width: 46.3rem;
 }
 
-.square,
-.o,
-.x {
-  display: inline-block;
+.square {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0.2rem;
   padding: 0;
   height: 15rem;
   width: 15rem;
   background-color: black;
   color: white;
-  font-size: 2rem;
+  font-size: 10rem;
 }
 
 .blank-square {
