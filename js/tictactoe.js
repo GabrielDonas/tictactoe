@@ -34,11 +34,13 @@ const Gameboard = (() => {
             _gameboard[i] =
               controller.getTurn() === "firstPlayerTurn" ? "X" : "O";
             render();
+            console.log(_gameboard); //delete
           };
       }
       square.id = `position-${i}`;
       gameContainer.appendChild(square);
     }
+    controller.checkResults(_gameboard);
   };
   return { render, start };
 })();
@@ -56,7 +58,34 @@ const controller = (() => {
     return _turn & 1 ? "firstPlayerTurn" : "secondPlayerTurn";
   };
 
-  return { getTurn };
+  const _checkPosition = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      console.log(`${i} / ${i + 3} / ${i + 6}`);
+      if (arr[i] && arr[i + 3] && arr[i + 6]) {
+        alert("winer");
+        return true;
+      } else if (arr[i] && arr[i + 1] && arr[i + 2]) {
+        alert("winer");
+        return true;
+      }
+    }
+  };
+
+  const checkResults = (arr) => {
+    let xPositions = [];
+    let oPositions = [];
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === "X") {
+        xPositions[i] = i;
+      } else if (arr[i] === "O") {
+        oPositions[i] = i;
+      }
+    }
+    _checkPosition(xPositions);
+    _checkPosition(oPositions);
+  };
+
+  return { getTurn, checkResults };
 })();
 
 Gameboard.start();
