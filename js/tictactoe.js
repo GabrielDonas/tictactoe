@@ -60,7 +60,6 @@ const controller = (() => {
 
   const _checkPosition = (arr) => {
     for (let i = 0; i < arr.length; i++) {
-      console.log(`${i} / ${i + 3} / ${i + 6}`);
       if (arr[i] && arr[i + 3] && arr[i + 6]) {
         alert("winer");
         return true;
@@ -76,9 +75,9 @@ const controller = (() => {
     let oPositions = [];
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === "X") {
-        xPositions[i] = i;
+        xPositions[i] = "X";
       } else if (arr[i] === "O") {
-        oPositions[i] = i;
+        oPositions[i] = "O";
       }
     }
     _checkPosition(xPositions);
