@@ -59,20 +59,33 @@ const controller = (() => {
   };
 
   const _checkPosition = (arr) => {
-    for (let i = 0; i < arr.length; i++) {
-      if (arr[i] && arr[i + 3] && arr[i + 6]) {
-        alert("winer");
-        return true;
-      } else if (arr[i] && arr[i + 1] && arr[i + 2]) {
-        alert("winer");
-        return true;
+    const lines = [
+      [0, 1, 2], // Horizontal
+      [0, 3, 6], // Vertical
+      [0, 4, 8], // Diagonal left to right
+      [2, 4, 6], // Diagonal right to left
+    ];
+
+    for (let i = 0; i < lines.length; i++) {
+      for (let j = 0; j < arr.length; j++) {
+        let lastPosition = j + lines[i][2];
+        if (
+          arr[j + lines[i][0]] &&
+          arr[j + lines[i][1]] &&
+          arr[j + lines[i][2]]
+        ) {
+          if (lastPosition !== 3) {
+            alert("winner");
+            return true;
+          }
+        }
       }
     }
   };
 
   const checkResults = (arr) => {
-    let xPositions = [];
-    let oPositions = [];
+    let xPositions = new Array(9);
+    let oPositions = new Array(9);
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === "X") {
         xPositions[i] = "X";
