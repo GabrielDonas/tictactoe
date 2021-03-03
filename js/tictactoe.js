@@ -34,7 +34,6 @@ const Gameboard = (() => {
             _gameboard[i] =
               controller.getTurn() === "firstPlayerTurn" ? "X" : "O";
             render();
-            console.log(_gameboard); //delete
           };
       }
       square.id = `position-${i}`;
@@ -59,25 +58,23 @@ const controller = (() => {
   };
 
   const _checkPosition = (arr) => {
-    const lines = [
-      [0, 1, 2], // Horizontal
-      [0, 3, 6], // Vertical
-      [0, 4, 8], // Diagonal left to right
-      [2, 4, 6], // Diagonal right to left
+    const winningCombos = [
+      [0, 1, 2],
+      [3, 4, 5],
+      [6, 7, 8],
+      [0, 3, 6],
+      [1, 4, 7],
+      [2, 5, 8],
+      [0, 4, 8],
+      [2, 4, 6],
     ];
 
-    for (let i = 0; i < lines.length; i++) {
-      for (let j = 0; j < arr.length; j++) {
-        let lastPosition = j + lines[i][2];
-        if (
-          arr[j + lines[i][0]] &&
-          arr[j + lines[i][1]] &&
-          arr[j + lines[i][2]]
-        ) {
-          if (lastPosition !== 3) {
-            alert("winner");
-            return true;
-          }
+    for (let i = 0; i < winningCombos.length; i++) {
+      for (let j = 0; j < winningCombos[i].length; j++) {
+        if (!arr[winningCombos[i][j]]) {
+          break;
+        } else if (arr[winningCombos[i][j]] && j === 2) {
+          alert(" winner");
         }
       }
     }
