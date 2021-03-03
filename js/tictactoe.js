@@ -3,19 +3,20 @@
 let gameContainer = document.getElementById("gameboard-container");
 
 // 1. Gameboard(module) // 2. Players(Factory) // 3. Controller(module)
-// How to stop the game when one of the players win
 
 const Gameboard = (() => {
   const _gameboard = [];
 
   const start = () => {
-    for (let i = 0; i < 9; i++) {
-      _gameboard.push("");
-    }
+    //gameContainer.appendChild()
   };
 
   const render = () => {
     gameContainer.innerHTML = "";
+
+    for (let i = 0; i < 9; i++) {
+      _gameboard.push("");
+    }
 
     for (const i in _gameboard) {
       let square = document.createElement("div");
@@ -71,9 +72,11 @@ const controller = (() => {
 
     for (let i = 0; i < winningCombos.length; i++) {
       for (let j = 0; j < winningCombos[i].length; j++) {
+        let lastSquare = winningCombos[i].length - 1;
         if (!arr[winningCombos[i][j]]) {
           break;
-        } else if (arr[winningCombos[i][j]] && j === 2) {
+        } else if (arr[winningCombos[i][j]] && j === lastSquare) {
+          //document.getElementsByClassName("square").style.color = "blue";
           alert(" winner");
         }
       }
