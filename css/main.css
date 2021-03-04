@@ -32,6 +32,10 @@ main {
   padding: 1rem;
 }
 
+#player2-container {
+  display: none;
+}
+
 input {
   background-color: black;
   color: rgb(0, 255, 0);

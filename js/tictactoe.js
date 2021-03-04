@@ -1,14 +1,37 @@
 "use strict";
 
 let gameContainer = document.getElementById("gameboard-container");
-
-// 1. Gameboard(module) // 2. Players(Factory) // 3. Controller(module)
+let startScreen = document.getElementById("start-screen");
+let playerOneInput = document.getElementById("player1");
+let playerTwoInput = document.getElementById("player2");
+let playerOneContainer = document.getElementById("player1-container");
+let playerTwoContainer = document.getElementById("player2-container");
+let playerOne;
+let playerTwo;
 
 const Gameboard = (() => {
   const _gameboard = [];
 
   const start = () => {
-    //gameContainer.appendChild()
+    gameContainer.style.display = "none";
+    playerOneInput.addEventListener("keyup", (event) => {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        playerOneInput.disabled = true;
+        playerTwoContainer.style.display = "block";
+        playerTwoInput.focus();
+        playerOne = Player(event.target.value);
+      }
+    });
+
+    playerTwoInput.addEventListener("keyup", (event) => {
+      if (event.keyCode === 13) {
+        event.preventDefault();
+        playerTwo = Player(event.target.value);
+        startScreen.style.display = "none";
+        gameContainer.style.display = "flex";
+      }
+    });
   };
 
   const render = () => {
