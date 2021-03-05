@@ -17,7 +17,33 @@ main {
   justify-content: center;
 }
 
-#start-screen {
+#button-container {
+  text-align: center;
+  margin-top: 1.3rem;
+}
+
+button {
+  background-color: Transparent;
+  color: white;
+  font-family: Inconsolata, monospace;
+  border: 1px solid rgb(0, 255, 0);
+  border-radius: 5px;
+  padding: 0.5rem;
+
+  transition: background-color 0.5s, color 0.5s;
+}
+
+button:hover {
+  background-color: rgb(0, 255, 0);
+  color: black;
+}
+
+a {
+  color: white;
+}
+
+#start-screen,
+#gameover-screen {
   position: fixed;
   position: fixed;
   top: 50%;
@@ -30,6 +56,10 @@ main {
   border: 1px solid white;
   border-radius: 15px;
   padding: 1rem;
+}
+
+#gameover-screen {
+  font-size: 1.2rem;
 }
 
 #player2-container {
@@ -46,6 +76,19 @@ input {
 
 label {
   color: rgb(0, 255, 0);
+}
+
+#score-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#score {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.5rem;
+  margin: 1rem 0;
+  min-width: 46.3rem;
 }
 
 #gameboard-container {
