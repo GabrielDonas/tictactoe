@@ -20,6 +20,7 @@ const Gameboard = (() => {
 
   const start = () => {
     if (playerOne && playerTwo) {
+      setLocalStorage();
       gameContainer.style.display = "flex";
     } else {
       gameContainer.style.display = "none";
@@ -72,7 +73,7 @@ const Gameboard = (() => {
     //Players Render
     const renderPlayer = (player) => {
       let playerName = document.createElement("div");
-      playerName.innerHTML = `${player.getName()}(0)`;
+      playerName.innerHTML = `${player.getName()}(${player.getScore()})`;
       scoreDisplay.appendChild(playerName);
       if (!player.getPosition()) {
         playerName.style.color = "rgb(0, 255, 0)";
@@ -111,14 +112,23 @@ const Gameboard = (() => {
 })();
 
 const Player = (name, position) => {
+  let _score = 0;
+
   const getName = () => name;
+
   const getPosition = () => {
     console.log();
     let turn = controller.getTurn() === "firstPlayerTurn" ? 1 : 2;
     return turn === position ? true : false;
   };
 
-  return { getName, getPosition };
+  const getScore = () => _score;
+
+  const win = () => {
+    _score++;
+  };
+
+  return { getName, getPosition, getScore, win };
 };
 
 const controller = (() => {
@@ -154,10 +164,8 @@ const controller = (() => {
         if (!arr[winningCombos[i][j]]) {
           break;
         } else if (arr[winningCombos[i][j]] && j === lastSquare) {
-          //which one is true here, it's the winner:
-          //console.log("player1 " + playerOne.getPosition());
-          //console.log("player2 " + playerTwo.getPosition());
           Gameboard.gameOver();
+          return playerOne.getPosition() ? playerOne.win() : playerTwo.win();
         }
       }
     }
@@ -180,4 +188,46 @@ const controller = (() => {
   return { getTurn, checkResults, resetTurn, addTurn };
 })();
 
+//localStorage
+function setLocalStorage() {
+  localStorage.setItem("playerOneName", playerOne.getName());
+  localStorage.setItem("playerTwoName", playerTwo.getName());
+  localStorage.setItem("playerOneScore", playerOne.getScore().toString());
+  localStorage.setItem("playerTwoScore", playerTwo.getScore().toString());
+}
+
+function getLocalStorage() {
+  const playerOneName = localStorage.getItem("playerOneName");
+  const playerTwoName = localStorage.getItem("playerTwoName");
+  const playerOneScore = parseInt(localStorage.getItem("playerOneScore"));
+  const playerTwoScore = parseInt(localStorage.getItem("playerTwoScore"));
+
+  if (playerOneName && playerTwoName) {
+    playerOne = Player(playerOneName, 1);
+    playerTwo = Player(playerTwoName, 2);
+    return true;
+  } else {
+    return false;
+  }
+}
+
+function clearLocalStorage() {
+  localStorage.setItem("playerOneName", "");
+  localStorage.setItem("playerTwoName", "");
+}
+
+/*
+function setLocalStorage() {
+  localStorage.setItem("playerOne", JSON.stringify(playerOne));
+  console.log(playerOne);
+  localStorage.setItem("playerTwo", JSON.stringify(playerTwo));
+}
+
+function getLocalStorage() {
+  if (!playerOne && !playerTwo) {
+    playerOne = JSON.parse(localStorage.getItem("playerOne"));
+    playerTwo = JSON.parse(localStorage.getItem("playerTwo"));
+  }
+}
+*/
 Gameboard.start();
