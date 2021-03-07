@@ -1,5 +1,6 @@
 "use strict";
 //Create local storages and update the scores
+//Include the winner name in the game over screen
 let gameContainer = document.getElementById("gameboard-container");
 let startScreen = document.getElementById("start-screen");
 let scoreDisplay = document.getElementById("score");
@@ -174,11 +175,17 @@ const controller = (() => {
   const checkResults = (arr) => {
     let xPositions = new Array(9);
     let oPositions = new Array(9);
+    let checkDraw = 0; //delete
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === "X") {
         xPositions[i] = "X";
+        checkDraw++;
       } else if (arr[i] === "O") {
         oPositions[i] = "O";
+        checkDraw++;
+      }
+      if (checkDraw === arr.length) {
+        Gameboard.gameOver();
       }
     }
     _checkPosition(xPositions);
