@@ -55,6 +55,7 @@ const Gameboard = (() => {
 
   const gameOver = () => {
     gameOverScreen.style.display = "block";
+    gameContainer.style.display = "none";
     console.log(playerOne.getName());
     winnerName.innerHTML =
       controller.getTurn() === "firstPlayerTurn"
