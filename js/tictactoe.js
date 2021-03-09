@@ -13,6 +13,7 @@ let playerOne;
 let playerTwo;
 
 let gameOverScreen = document.getElementById("gameover-screen");
+let winnerName = document.getElementById("winner");
 let restartButton = document.getElementById("restart-button");
 let resetButton = document.getElementById("reset-button");
 
@@ -54,6 +55,11 @@ const Gameboard = (() => {
 
   const gameOver = () => {
     gameOverScreen.style.display = "block";
+    console.log(playerOne.getName());
+    winnerName.innerHTML =
+      controller.getTurn() === "firstPlayerTurn"
+        ? `${playerOne.getName()} wins!`
+        : `${playerTwo.getName()} wins!`;
     restartButton.addEventListener("click", () => {
       gameOverScreen.style.display = "none";
       _gameboard = [];
