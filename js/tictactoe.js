@@ -1,6 +1,5 @@
 "use strict";
-//Create local storages and update the scores
-//Include the winner name in the game over screen
+
 let gameContainer = document.getElementById("gameboard-container");
 let startScreen = document.getElementById("start-screen");
 let scoreDisplay = document.getElementById("score");
@@ -53,14 +52,18 @@ const Gameboard = (() => {
     }
   };
 
-  const gameOver = () => {
+  const gameOver = (draw) => {
     gameOverScreen.style.display = "block";
     gameContainer.style.display = "none";
-    console.log(playerOne.getName());
-    winnerName.innerHTML =
-      controller.getTurn() === "firstPlayerTurn"
-        ? `${playerOne.getName()} wins!`
-        : `${playerTwo.getName()} wins!`;
+    if (draw) {
+      winnerName.innerHTML = "It's a draw!";
+    } else {
+      winnerName.innerHTML =
+        controller.getTurn() === "firstPlayerTurn"
+          ? `${playerOne.getName()} wins!`
+          : `${playerTwo.getName()} wins!`;
+    }
+
     restartButton.addEventListener("click", () => {
       gameOverScreen.style.display = "none";
       _gameboard = [];
@@ -125,7 +128,6 @@ const Player = (name, position) => {
   const getName = () => name;
 
   const getPosition = () => {
-    console.log();
     let turn = controller.getTurn() === "firstPlayerTurn" ? 1 : 2;
     return turn === position ? true : false;
   };
@@ -182,7 +184,7 @@ const controller = (() => {
   const checkResults = (arr) => {
     let xPositions = new Array(9);
     let oPositions = new Array(9);
-    let checkDraw = 0; //delete
+    let checkDraw = 0;
     for (let i = 0; i < arr.length; i++) {
       if (arr[i] === "X") {
         xPositions[i] = "X";
@@ -192,7 +194,8 @@ const controller = (() => {
         checkDraw++;
       }
       if (checkDraw === arr.length) {
-        Gameboard.gameOver();
+        let draw = true;
+        Gameboard.gameOver(draw);
       }
     }
     _checkPosition(xPositions);
