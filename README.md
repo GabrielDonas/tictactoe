@@ -6,8 +6,6 @@
 
 Vanilla JS Tic Tac Toe using factory constructors and module pattern. <br />
 
-This is a project from the [Odin Project Curriculum](https://www.theodinproject.com).
-
 #### Features
 
 - Two-player game
